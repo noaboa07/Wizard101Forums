@@ -1,30 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getPosts } from '../services/api'; // Import getPosts function from API
+import { getPosts, searchPosts } from '../services/api'; // Import getPosts and searchPosts functions from API
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('created_at');
   const [order, setOrder] = useState('desc');
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const postData = await getPosts(sortBy, order);
+        const postData = await getPosts(sortBy, order); // Call getPosts function with sortBy and order parameters
         setPosts(postData);
       } catch (error) {
         console.error('Error fetching posts:', error.message);
       }
     };
     fetchPosts();
-  }, [sortBy, order]);
+  }, [sortBy, order]); // Trigger useEffect when sortBy or order changes
+
+  const handleSearchChange = async (e) => {
+    setSearchTerm(e.target.value); // Update search term state
+    try {
+      const postData = await searchPosts(e.target.value); // Call searchPosts function with the new search term
+      setPosts(postData);
+    } catch (error) {
+      console.error('Error searching posts:', error.message);
+    }
+  };
 
   const handleSortChange = (e) => {
-    setSortBy(e.target.value);
+    setSortBy(e.target.value); // Update sortBy state
   };
 
   const handleOrderChange = (e) => {
-    setOrder(e.target.value);
+    setOrder(e.target.value); // Update order state
   };
 
   return (
@@ -42,6 +53,12 @@ const HomePage = () => {
           <option value="asc">Ascending</option>
         </select>
       </div>
+      <input
+        type="text"
+        placeholder="Search by title"
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
