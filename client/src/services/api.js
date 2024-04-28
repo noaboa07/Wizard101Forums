@@ -5,11 +5,16 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export const getPosts = async () => {
-  const { data, error } = await supabase.from('posts').select('*');
+export const getPosts = async (sortBy = 'created_at', order = 'desc') => {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+    .order(sortBy, { ascending: order === 'asc', descending: order === 'desc' });
+
   if (error) {
     throw new Error(error.message);
   }
+
   return data;
 };
 
@@ -22,17 +27,53 @@ export const getPost = async postId => {
 };
 
 export const createPost = async postData => {
-  const { data, error } = await supabase.from('posts').insert(postData);
+  // Add initialization for upvotes and created_at fields
+  const postDataWithDefaults = {
+    ...postData,
+    upvotes: 0,
+    created_at: new Date().toISOString() // Set current time
+  };
+
+  const { data, error } = await supabase.from('posts').insert(postDataWithDefaults);
   if (error) {
     throw new Error(error.message);
   }
   return data;
 };
 
-export const createComment = async (postId, author, commentData) => {
+export const updatePost = async (postId, updatedData) => {
+  try {
+    const { data, error } = await supabase
+      .from('posts')
+      .update(updatedData)
+      .eq('id', postId);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const deletePost = async postId => {
+  try {
+    const { error } = await supabase.from('posts').delete().eq('id', postId);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const createComment = async (postId, commentData) => {
   const { data, error } = await supabase
     .from('comments')
-    .insert([{ ...commentData, postId, author }]);
+    .insert([{ ...commentData, postId }]);
   if (error) {
     throw new Error(error.message);
   }
@@ -51,3 +92,16 @@ export const getPostWithComments = async postId => {
     
     return { post: postData.data, comments: commentData.data };
   };
+
+  export const searchPosts = async (title) => {
+    const { data, error } = await supabase
+      .from('posts')
+      .select('*')
+      .ilike('title', `%${title}%`);
+    if (error) {
+      throw new Error(error.message);
+    }
+    return data;
+  };
+
+  
