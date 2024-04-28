@@ -60,10 +60,24 @@ export const updatePost = async (postId, updatedData) => {
 
 export const deletePost = async postId => {
   try {
-    const { error } = await supabase.from('posts').delete().eq('id', postId);
+    // Delete comments associated with the post
+    const { error: commentError } = await supabase
+      .from('comments')
+      .delete()
+      .eq('postId', postId);
 
-    if (error) {
-      throw new Error(error.message);
+    if (commentError) {
+      throw new Error(commentError.message);
+    }
+
+    // Delete the post
+    const { error: postError } = await supabase
+      .from('posts')
+      .delete()
+      .eq('id', postId);
+
+    if (postError) {
+      throw new Error(postError.message);
     }
   } catch (error) {
     throw new Error(error.message);

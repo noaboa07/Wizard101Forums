@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getPost, createComment, updatePost, deletePost } from '../services/api';
+import { createComment, updatePost, deletePost, getPostWithComments } from '../services/api';
 import CommentForm from '../components/CommentForm';
+import './PostPage.css';
 
 const PostPage = () => {
   const { postId } = useParams();
@@ -14,16 +15,15 @@ const PostPage = () => {
   useEffect(() => {
     const fetchPostAndComments = async () => {
       try {
-        const postData = await getPost(postId);
-        setPost(postData);
-        setComments(postData.comments || []);
-        setLoading(false);
+        const { post, comments } = await getPostWithComments(postId);
+        setPost(post);
+        setComments(comments);
       } catch (error) {
         setError(error.message);
+      } finally {
         setLoading(false);
       }
     };
-
     fetchPostAndComments();
   }, [postId]);
 
@@ -63,24 +63,29 @@ const PostPage = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <h2>{post.title}</h2>
-      <p>{post.content}</p>
-      {post.image && <img src={post.image} alt="Post" />}
-      <p>Upvotes: {post.upvotes}</p>
-      <button onClick={handleUpvote}>Upvote</button>
-      <button onClick={handleDelete}>Delete</button>
-      <button onClick={handleEdit}>Edit</button> {/* Button to navigate to the edit page */}
-      
-      <h3>Comments</h3>
-      {comments.map((comment) => (
-        <div key={comment.id}>
-          <p>{comment.text}</p>
-          <p>By: {comment.author}</p>
+    <div className="forum-page">
+      <div className="post-section">
+        <div className="post">
+          <h2>{post.title}</h2>
+          <p>{post.content}</p>
+          {post.image && <img src={post.image} alt="Post" />}
+          <p>Upvotes: {post.upvotes}</p>
+          <button className="btn" onClick={handleUpvote}>Upvote</button>
+          <button className="btn" onClick={handleDelete}>Delete</button>
+          <button className="btn" onClick={handleEdit}>Edit</button> {/* Button to navigate to the edit page */}
+          
+          <CommentForm postId={postId} onSubmit={handleSubmitComment} />
         </div>
-      ))}
-      
-      <CommentForm onSubmit={handleSubmitComment} />
+        <div className="comments-section">
+          <h3>Comments</h3>
+          {comments.map((comment) => (
+            <div key={comment.id} className="comment">
+              <p>{comment.text}</p>
+              <p>By: {comment.author}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

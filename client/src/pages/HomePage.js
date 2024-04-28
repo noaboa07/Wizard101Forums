@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getPosts, searchPosts } from '../services/api'; // Import getPosts and searchPosts functions from API
+import './HomePage.css';
+
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -39,16 +41,16 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <div className="home-page">
       <h2>Wizard101 Forums</h2>
-      <div>
+      <div className="sort-section">
         <label>Sort By:</label>
-        <select value={sortBy} onChange={handleSortChange}>
+        <select className="sort-select" value={sortBy} onChange={handleSortChange}>
           <option value="created_at">Created Time</option>
           <option value="upvotes">Upvotes Count</option>
         </select>
         <label>Order:</label>
-        <select value={order} onChange={handleOrderChange}>
+        <select className="sort-select" value={order} onChange={handleOrderChange}>
           <option value="desc">Descending</option>
           <option value="asc">Ascending</option>
         </select>
@@ -60,15 +62,15 @@ const HomePage = () => {
         onChange={handleSearchChange}
       />
       <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <Link to={`/post/${post.id}`} style={{ color: '#000' }}>
-              {post.title} (Upvotes: {post.upvotes}, Created At: {new Date(post.created_at).toLocaleString()})
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+      {posts.map((post) => (
+  <li key={post.id}>
+    <Link to={`/post/${post.id}`} style={{ color: 'white' }}>
+      {post.title} (Upvotes: {post.upvotes}, Created At: {new Date(post.created_at).toLocaleString()})
+    </Link>
+  </li>
+))}
+</ul>
+</div>
   );
 };
 

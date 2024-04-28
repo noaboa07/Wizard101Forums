@@ -1,0 +1,29 @@
+.forum-page {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1em;
+  }
+  
+  .post-section {
+    display: flex;
+  }
+  
+  .post, .comments-section {
+    flex: 1;
+    margin-bottom: 1em;
+  }
+  
+  .post h2, .comments-section h3 {
+    margin-top: 0;
+  }
+  
+  .btn {
+    margin-right: 10px;
+  }
+  
+  .comment {
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1em;
+  }
