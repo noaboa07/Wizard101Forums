@@ -44,7 +44,7 @@ Welcome to the **Wizard101 Forums**! This web application allows users to create
 
 Here’s a visual walkthrough of the implemented features:
 
-![Video Walkthrough](client/src/components/NETLIFY - Final Project.gif)
+![Video Walkthrough](client/src/components/FinalProject.gif)
 
 *GIF created with VEED.io*
 
