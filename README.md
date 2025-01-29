@@ -1,66 +1,61 @@
-# Web Development Final Project - *Wizard101 Forums*
+# Wizard101 Forums 🧙‍♂️✨
 
-## Link to Netlify website
+**Live Website:** [View the app on Netlify](https://662edd266a9762348bb37cdc--serene-toffee-8c531c.netlify.app/)
 
-https://662edd266a9762348bb37cdc--serene-toffee-8c531c.netlify.app/
+**Author:** Noah Russell
 
-Submitted by: **Noah Russell**
+**Project Description:**
+Welcome to the **Wizard101 Forums**! This web application allows users to create, edit, and delete posts about their wizarding adventures. Users can share their experiences with others, engage with the community by upvoting and commenting on posts, and explore other users' wizard stories. A perfect place to connect with fellow fans and learn more about the magical world! ✨🎮
 
-This web app: **This project allows you to create, edit, and delete your wizard experience for anyone to see. You can interact with other people's posts through upvotes and comments to make new friends and learn more peoples adventures!**
+**Time Spent:** 8 hours ⏰
 
-Time spent: **8** hours spent in total
+---
 
-## Required Features
+## Features 🔧
 
-The following **required** functionality is completed:
+### Required Features ✔️
+- **Create Posts**: Users can create posts with a title, optional text content, and an image (via an external image URL).
+- **Home Feed**: A dynamic feed displaying all previously created posts, with the time of creation, title, and upvotes count.
+- **Post Details Page**: Clicking on any post takes the user to a detailed page for that specific post.
+- **Sorting Posts**: Users can sort posts by their creation time or upvote count.
+- **Search Functionality**: Users can search for posts by title.
+- **Comment System**: Users can leave comments under any post on its individual page.
+- **Upvote System**: Each post has an upvote button that increases its upvote count by one. Users can upvote multiple times.
+- **Post Editing & Deletion**: Users can edit or delete their posts directly from the post's page.
 
-- [✔️] **A create form that allows the user to create posts**
-- [✔️] **Posts have a title and optionally additional textual content and/or an image added as an external image URL**
-- [✔️] **A home feed displaying previously created posts**
-- [✔️] **By default, the time created, title, and number of upvotes for each post is shown on the feed**
-- [✔️] **Clicking on a post shall direct the user to a new page for the selected post**
-- [✔️] **Users can sort posts by either their created time or upvotes count**
-- [✔️] **Users can search for posts by title**
-- [✔️] **A separate post page for each created post, where any additional information is shown is linked whenever a user clicks a post**
-- [✔️] **Users can leave comments underneath a post on the post's separate page**
-- [✔️] **Each post should have an upvote button on the post's page. Each click increases its upvotes count by one and users can upvote any number of times**
-- [✔️] **A previously created post can be edited or deleted from its post page**
+### Optional Features (Not Implemented) ❌
+- **Secret Key for Edit/Delete**: Users can set a secret key during post creation, required to edit or delete posts and comments.
+- **Random User ID**: Upon launching, a random user ID is assigned, displayed on posts and comments they create.
+- **Reposting Posts**: Users can repost previous posts, linking back to the original to create a thread.
+- **Customizable Interface**: Users can customize the web app’s interface.
+- **Web Video Sharing**: Users can share and view videos within the app.
+- **Flagging Posts**: Users can flag posts during creation, allowing them to filter posts by flag in the feed.
+- **Image Upload**: Users can upload images directly from their local machine as part of their posts.
+- **Loading Animation**: Display a loading animation whenever data is being fetched.
 
-The following **optional** features are implemented:
+### Additional Features ✨
+- **Visually Appealing Background**: A cool, engaging background image enhances the visual appeal of the app.
+- **Post Deletion**: When a post is deleted, all associated comments are also deleted.
+- **HTML Customization**: Updated the `index.html` to accommodate the forum’s layout and structure.
 
-- [ ] Users can only edit and deleted posts or delete comments by entering the secret key, which is set by the user during post creation
-- [ ] Upon launching the web app, the user is assigned a random user ID. It will be associated with all posts and comments that they make and displayed on them.
-- [ ] Users can repost a previous post by referencing its post ID. On the post page of the new post, the referenced post is displayed and linked, creating a thread
-- [ ] Users can customize the interface of the web app
-- [ ] Users can share and view web videos
-- [ ] Users can set flags while creating a post. Then users can filter posts by flags on the home feed.
-- [ ] Users can upload images directly from their local machine as an image file
-- [ ] Display a loading animation whenever data is being fetched
+---
 
-The following **additional** features are implemented:
+## Video Walkthrough 🎥
 
-* [✔️] Added a cool background image for user appeal
-* [✔️] When deleting a post, it deletes all comments associated with that post.
-* [✔️] Changed the index.html to appropriately accomodate my forum page lol
+Here’s a visual walkthrough of the implemented features:
 
-## Video Walkthrough
+![Video Walkthrough](client/src/components/NETLIFY - Final Project.gif)
 
-Here's a walkthrough of implemented user stories:
+*GIF created with VEED.io*
 
-<img src='client\src\components\NETLIFY - Final Project.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+---
 
-<!-- Replace this with whatever GIF tool you used! -->
-GIF created with VEED.io
-<!-- Recommended tools:
-[Kap](https://getkap.co/) for macOS
-[ScreenToGif](https://www.screentogif.com/) for Windows
-[peek](https://github.com/phw/peek) for Linux. -->
+## Notes 📝
+The most challenging part of this project was getting the **comment functionality** to work correctly. I struggled with linking comments to their corresponding posts through the `post_id`. Initially, comments would either store a null value or appear on every post, rather than being correctly tied to the post they were meant for. After some debugging and adjusting the Supabase tables, I successfully resolved the issue, making the comment system functional.
 
-## Notes
+---
 
-Making my comments function correctly was definitely the most difficult task. I kept having trouble trying to get my supabase tables to work with my functions and allow each comment to share the same post_id as id of the post. Essentially, comments would either store a null value or just show up on every post instead of just the post they're intended to be on.
-
-## License
+## License 📜
 
     Copyright [2024] [Noah Russell]
 
